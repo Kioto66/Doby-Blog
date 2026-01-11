@@ -1,0 +1,489 @@
+/* ============ СТРАНИЦА СТАТЬИ БЛОГА ============ */
+
+/* Breadcrumbs */
+.breadcrumbs-section {
+    background: var(--bg-light);
+    padding: 1.5rem 0;
+    margin-top: 80px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.breadcrumbs a {
+    color: var(--gray);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.breadcrumbs a:hover {
+    color: var(--primary);
+}
+
+.breadcrumbs .separator {
+    color: #ccc;
+}
+
+.breadcrumbs span:last-child {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+/* Основной контейнер статьи */
+.post-article {
+    padding: 3rem 0;
+    background: var(--bg-light);
+}
+
+.post-layout {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 3rem;
+    align-items: start;
+}
+
+/* Загрузка */
+.post-loading {
+    text-align: center;
+    padding: 5rem 2rem;
+}
+
+.post-loading i {
+    font-size: 3rem;
+    color: var(--primary);
+    margin-bottom: 1rem;
+}
+
+.post-loading p {
+    color: var(--gray);
+    font-size: 1.1rem;
+}
+
+/* Контейнер статьи */
+.post-container {
+    background: white;
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+/* Header статьи */
+.post-header {
+    padding: 3rem 3rem 2rem;
+}
+
+.post-category-badge {
+    display: inline-block;
+    background: var(--accent-red);
+    color: white;
+    padding: 0.5rem 1.2rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.post-category-badge.nature { background: #2E7D32; }
+.post-category-badge.culture { background: #8B4513; }
+.post-category-badge.food { background: #F57C00; }
+.post-category-badge.cities { background: #1976D2; }
+.post-category-badge.tips { background: #7B1FA2; }
+
+.post-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    color: var(--primary);
+    line-height: 1.3;
+    margin-bottom: 2rem;
+}
+
+.post-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1.5rem;
+    border-top: 2px solid var(--bg-light);
+}
+
+.post-author {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.author-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--accent-red);
+}
+
+.author-info strong {
+    display: block;
+    color: var(--primary);
+    font-size: 1.1rem;
+}
+
+.author-info span {
+    color: var(--gray);
+    font-size: 0.85rem;
+}
+
+.post-stats {
+    display: flex;
+    gap: 1.5rem;
+    color: var(--gray);
+    font-size: 0.9rem;
+}
+
+.post-stats span {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+/* Главное изображение */
+.post-featured-image {
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
+}
+
+.post-featured-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Контент статьи */
+.post-content {
+    padding: 3rem;
+    font-size: 1.1rem;
+    line-height: 1.9;
+    color: #333;
+}
+
+.post-content h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: var(--primary);
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 3px solid var(--accent-red);
+}
+
+.post-content h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: var(--primary);
+    margin-top: 2rem;
+    margin-bottom: 0.8rem;
+}
+
+.post-content p {
+    margin-bottom: 1.5rem;
+}
+
+.post-content strong {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.post-content em {
+    color: var(--gray);
+    font-style: italic;
+}
+
+.post-content blockquote {
+    border-left: 4px solid var(--accent-red);
+    background: var(--bg-light);
+    padding: 1.5rem 2rem;
+    margin: 2rem 0;
+    font-style: italic;
+    color: var(--gray);
+}
+
+.post-content ul, .post-content ol {
+    margin: 1.5rem 0;
+    padding-left: 2rem;
+}
+
+.post-content li {
+    margin-bottom: 0.8rem;
+}
+
+.post-content img {
+    max-width: 100%;
+    border-radius: 12px;
+    margin: 2rem 0;
+}
+
+/* Теги */
+.post-tags {
+    padding: 2rem 3rem;
+    border-top: 1px solid var(--bg-light);
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+}
+
+.post-tag {
+    background: var(--bg-light);
+    color: var(--gray);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.post-tag:hover {
+    background: var(--primary);
+    color: white;
+}
+
+/* Карточка автора */
+.post-author-card {
+    display: flex;
+    gap: 2rem;
+    padding: 3rem;
+    background: linear-gradient(135deg, #8B4513 0%, #A0522D 50%, #CD853F 100%);
+    color: white;
+    margin: 2rem 3rem;
+    border-radius: 12px;
+}
+
+.author-card-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid white;
+    flex-shrink: 0;
+}
+
+.author-card-content h3 {
+    font-size: 1.8rem;
+    margin-bottom: 0.8rem;
+}
+
+.author-card-content p {
+    margin-bottom: 1.5rem;
+    opacity: 0.95;
+    line-height: 1.6;
+}
+
+.author-stats {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.author-stats span {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+}
+
+/* Навигация между статьями */
+.post-navigation {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    padding: 2rem 3rem 3rem;
+}
+
+.nav-post {
+    padding: 1.5rem;
+    background: var(--bg-light);
+    border-radius: 12px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s;
+}
+
+.nav-post:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow);
+}
+
+.nav-post-label {
+    font-size: 0.85rem;
+    color: var(--gray);
+    margin-bottom: 0.5rem;
+}
+
+.nav-post-title {
+    color: var(--primary);
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+/* Sidebar */
+.post-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.sticky-sidebar {
+    position: sticky;
+    top: 100px;
+}
+
+.table-of-contents {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.toc-link {
+    color: var(--gray);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-left: 3px solid transparent;
+    transition: all 0.3s;
+}
+
+.toc-link:hover,
+.toc-link.active {
+    color: var(--primary);
+    border-left-color: var(--accent-red);
+    background: var(--bg-light);
+}
+
+/* Похожие посты */
+.related-post {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--bg-light);
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s;
+}
+
+.related-post:last-child {
+    border-bottom: none;
+}
+
+.related-post:hover {
+    transform: translateX(5px);
+}
+
+.related-post-thumb {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.related-post-info h4 {
+    font-size: 0.95rem;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+}
+
+.related-post-info .meta {
+    font-size: 0.8rem;
+    color: var(--gray);
+}
+
+/* Адаптив */
+@media (max-width: 1024px) {
+    .post-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .post-sidebar {
+        order: -1;
+    }
+
+    .sticky-sidebar {
+        position: static;
+    }
+
+    .post-title {
+        font-size: 2.2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .breadcrumbs-section {
+        margin-top: 60px;
+    }
+
+    .post-header {
+        padding: 2rem 1.5rem 1.5rem;
+    }
+
+    .post-title {
+        font-size: 1.8rem;
+    }
+
+    .post-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .post-stats {
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .post-featured-image {
+        height: 300px;
+    }
+
+    .post-content {
+        padding: 2rem 1.5rem;
+        font-size: 1rem;
+    }
+
+    .post-content h2 {
+        font-size: 1.6rem;
+    }
+
+    .post-author-card {
+        flex-direction: column;
+        padding: 2rem 1.5rem;
+        margin: 1.5rem;
+        text-align: center;
+    }
+
+    .author-card-avatar {
+        margin: 0 auto;
+    }
+
+    .author-stats {
+        justify-content: center;
+    }
+
+    .post-navigation {
+        grid-template-columns: 1fr;
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .post-title {
+        font-size: 1.5rem;
+    }
+
+    .post-content {
+        font-size: 0.95rem;
+    }
+
+    .post-featured-image {
+        height: 250px;
+    }
+}

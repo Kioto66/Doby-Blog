@@ -1,0 +1,407 @@
+from django.core.management.base import BaseCommand
+from django.utils import timezone
+from datetime import timedelta
+from tours.models import TourOperator, Tour, TourDate, FAQ, Review
+import random
+
+
+class Command(BaseCommand):
+    help = 'Заполняет базу тестовыми данными'
+
+    def handle(self, *args, **options):
+        self.stdout.write('Начинаем заполнение базы данных...')
+        
+        # Очищаем в правильном порядке (от зависимых к независимым)
+        self.stdout.write('Очистка старых данных...')
+        Review.objects.all().delete()
+        FAQ.objects.all().delete()
+        TourDate.objects.all().delete()
+        Tour.objects.all().delete()  # Сначала туры
+        TourOperator.objects.all().delete()  # Потом операторов
+        
+        # Создаем туроператоров
+        self.create_operators()
+        
+        # Создаем туры
+        self.create_tours()
+        
+        # Создаем FAQ
+        self.create_faq()
+        
+        # Создаем отзывы
+        self.create_reviews()
+        
+        self.stdout.write(self.style.SUCCESS('База данных успешно заполнена!'))
+    def create_operators(self):
+        operators_data = [
+            {
+                'name': 'Грузинские приключения',
+                'description': 'Мы специализируемся на групповых турах по Грузии с 2015 года. Наши гиды - профессионалы своего дела.',
+                'phone': '+7 928 123-45-67',
+                'email': 'info@georgia-adventures.ru',
+            },
+            {
+                'name': 'Кавказ-Тур',
+                'description': 'Индивидуальные туры по Кавказу. Комфорт и безопасность - наш приоритет.',
+                'phone': '+7 928 234-56-78',
+                'email': 'contact@kavkaz-tour.ru',
+            },
+            {
+                'name': 'Тбилиси Экспресс',
+                'description': 'Быстрые автобусные туры по лучшим местам Грузии. Доступные цены.',
+                'phone': '+7 928 345-67-89',
+                'email': 'hello@tbilisi-express.ru',
+            },
+        ]
+        
+        for data in operators_data:
+            operator, created = TourOperator.objects.get_or_create(
+                name=data['name'],
+                defaults=data
+            )
+            if created:
+                self.stdout.write(f'Создан туроператор: {operator.name}')
+
+    def create_tours(self):
+        operators = list(TourOperator.objects.all())
+        
+        tours_data = [
+            {
+                'title': 'Тбилиси - сердце Грузии (3 дня)',
+                'description_short': 'Познакомьтесь со столицей Грузии за 3 незабываемых дня',
+                'description_full': 'Увлекательное путешествие по Тбилиси с посещением Старого города, крепости Нарикала, серных бань, проспекта Руставели и района Абанотубани. Вы попробуете настоящую грузинскую кухню и вино.',
+                'price_base': 25000,
+                'duration_days': 3,
+                'tour_type': 'bus_group',
+                'max_people': 45,
+                'region': 'Тбилиси',
+                'included': 'Проживание в отеле 3*, завтраки, трансферы, экскурсии с гидом',
+                'not_included': 'Авиабилеты, обеды, ужины, личные расходы',
+                'program': [
+                    {'day': 1, 'title': 'Прилет и знакомство с городом', 'description': 'Встреча в аэропорту, размещение в отеле, вечерняя прогулка по Старому городу'},
+                    {'day': 2, 'title': 'Исторический Тбилиси', 'description': 'Крепость Нарикала, серные бани, Абанотубани, дегустация вина'},
+                    {'day': 3, 'title': 'Современный Тбилиси', 'description': 'Проспект Руставели, мост Мира, парк Рике, трансфер в аэропорт'},
+                ]
+            },
+            {
+                'title': 'Тбилиси + Казбеги (5 дней)',
+                'description_short': 'Столица и величественные горы Казбека',
+                'description_full': 'Комбинированный тур по Тбилиси и горному региону Казбеги. Вы увидите древние крепости, горные серпантины, церковь Гергети и насладитесь невероятными видами Кавказских гор.',
+                'price_base': 45000,
+                'duration_days': 5,
+                'tour_type': 'bus_group',
+                'max_people': 30,
+                'region': 'Тбилиси, Казбеги',
+                'included': 'Проживание, завтраки, транспорт, гид, входные билеты',
+                'not_included': 'Авиабилеты, обеды, ужины',
+                'program': [
+                    {'day': 1, 'title': 'Прилет в Тбилиси', 'description': 'Трансфер, размещение, вечерняя прогулка'},
+                    {'day': 2, 'title': 'Тбилиси', 'description': 'Обзорная экскурсия по столице'},
+                    {'day': 3, 'title': 'Дорога в Казбеги', 'description': 'Военно-Грузинская дорога, Ананури, Гудаури'},
+                    {'day': 4, 'title': 'Казбеги', 'description': 'Церковь Гергети, горные виды, хинкали'},
+                    {'day': 5, 'title': 'Возвращение', 'description': 'Дорога в Тбилиси, трансфер в аэропорт'},
+                ]
+            },
+            {
+                'title': 'Грузинское вино и замки (4 дня)',
+                'description_short': 'Винный тур по Кахетии с посещением старинных замков',
+                'description_full': 'Погрузитесь в мир грузинского виноделия! Посетите знаменитые винные погреба Кахетии, продегустируйте лучшие сорта вина, познакомьтесь с древними замками и крепостями региона.',
+                'price_base': 38000,
+                'duration_days': 4,
+                'tour_type': 'bus_small',
+                'max_people': 18,
+                'region': 'Кахетия',
+                'included': 'Проживание в гостевом доме, завтраки, дегустации вин, трансферы, гид',
+                'not_included': 'Авиабилеты, обеды, ужины, покупка вина',
+                'program': [
+                    {'day': 1, 'title': 'Тбилиси - Сигнахи', 'description': 'Переезд в город любви Сигнахи, размещение'},
+                    {'day': 2, 'title': 'Винные погреба Кахетии', 'description': 'Посещение 3-х виноделен, дегустации'},
+                    {'day': 3, 'title': 'Замки и крепости', 'description': 'Греми, Некреси, Алазанская долина'},
+                    {'day': 4, 'title': 'Возвращение в Тбилиси', 'description': 'Монастырь Бодбе, трансфер'},
+                ]
+            },
+            {
+                'title': 'Большое путешествие по Грузии (10 дней)',
+                'description_short': 'Полный тур по всем регионам Грузии',
+                'description_full': 'Самый полный маршрут! Вы увидите все главные достопримечательности Грузии: от Тбилиси до Батуми, от Казбеги до Вардзии. Горы, море, вино, древние города и монастыри.',
+                'price_base': 85000,
+                'duration_days': 10,
+                'tour_type': 'bus_group',
+                'max_people': 40,
+                'region': 'Вся Грузия',
+                'included': 'Проживание в отелях 3-4*, завтраки, транспорт, экскурсии, входные билеты',
+                'not_included': 'Авиабилеты, обеды, ужины',
+                'program': [
+                    {'day': 1, 'title': 'Тбилиси', 'description': 'Прилет, обзорная экскурсия'},
+                    {'day': 2, 'title': 'Мцхета и Гори', 'description': 'Древняя столица, родина Сталина'},
+                    {'day': 3, 'title': 'Казбеги', 'description': 'Горы и Гергети'},
+                    {'day': 4, 'title': 'Кахетия', 'description': 'Винный регион'},
+                    {'day': 5, 'title': 'Тбилиси - Кутаиси', 'description': 'Переезд на запад'},
+                    {'day': 6, 'title': 'Кутаиси', 'description': 'Гелати, Моцамета'},
+                    {'day': 7, 'title': 'Батуми', 'description': 'Море и пальмы'},
+                    {'day': 8, 'title': 'Батуми', 'description': 'Отдых на море'},
+                    {'day': 9, 'title': 'Вардзия', 'description': 'Пещерный город'},
+                    {'day': 10, 'title': 'Возвращение', 'description': 'Трансфер в аэропорт'},
+                ]
+            },
+            {
+                'title': 'Батуми - море и горы (6 дней)',
+                'description_short': 'Отдых на черноморском побережье Грузии',
+                'description_full': 'Насладитесь солнцем, морем и субтропиками Аджарии. Посетите Батуми, Сарпи, Гонио, Мцване-Концхи. Совместите пляжный отдых с экскурсиями по окрестностям.',
+                'price_base': 42000,
+                'duration_days': 6,
+                'tour_type': 'bus_group',
+                'max_people': 35,
+                'region': 'Аджария',
+                'included': 'Проживание у моря, завтраки, экскурсии, трансферы',
+                'not_included': 'Авиабилеты, обеды, ужины',
+                'program': [
+                    {'day': 1, 'title': 'Прилет в Батуми', 'description': 'Трансфер, размещение, прогулка по набережной'},
+                    {'day': 2, 'title': 'Отдых на море', 'description': 'Свободный день на пляже'},
+                    {'day': 3, 'title': 'Батуми', 'description': 'Обзорная экскурсия, канатная дорога'},
+                    {'day': 4, 'title': 'Мцване-Концхи', 'description': 'Водопады и горы'},
+                    {'day': 5, 'title': 'Отдых', 'description': 'Свободный день'},
+                    {'day': 6, 'title': 'Вылет', 'description': 'Трансфер в аэропорт'},
+                ]
+            },
+            {
+                'title': 'Индивидуальный VIP тур (5 дней)',
+                'description_short': 'Персональный тур по вашему маршруту',
+                'description_full': 'Эксклюзивное путешествие с личным водителем и гидом. Вы сами выбираете маршрут и достопримечательности. Проживание в лучших отелях, комфортабельный транспорт, максимум внимания.',
+                'price_base': 95000,
+                'duration_days': 5,
+                'tour_type': 'individual',
+                'max_people': 4,
+                'region': 'По выбору',
+                'included': 'Проживание в отелях 4-5*, все питание, личный водитель, гид, транспорт премиум-класса',
+                'not_included': 'Авиабилеты',
+                'program': [
+                    {'day': 1, 'title': 'Встреча', 'description': 'Личная встреча в аэропорту с табличкой'},
+                    {'day': 2, 'title': 'По вашему желанию', 'description': 'Маршрут обсуждается индивидуально'},
+                    {'day': 3, 'title': 'По вашему желанию', 'description': 'Гибкий график'},
+                    {'day': 4, 'title': 'По вашему желанию', 'description': 'Возможны любые изменения'},
+                    {'day': 5, 'title': 'Проводы', 'description': 'Трансфер в аэропорт'},
+                ]
+            },
+            {
+                'title': 'Мцхета и Уплисцихе (1 день)',
+                'description_short': 'Однодневная экскурсия из Тбилиси',
+                'description_full': 'Идеальный вариант для короткого знакомства с древней Грузией. Посетите древнюю столицу Мцхету с собором Светицховели и монастырем Джвари, а также пещерный город Уплисцихе.',
+                'price_base': 8500,
+                'duration_days': 1,
+                'tour_type': 'bus_small',
+                'max_people': 15,
+                'region': 'Мцхета',
+                'included': 'Транспорт, гид, входные билеты',
+                'not_included': 'Питание',
+                'program': [
+                    {'day': 1, 'title': 'Мцхета и Уплисцихе', 'description': 'Выезд утром из Тбилиси, возвращение вечером'},
+                ]
+            },
+            {
+                'title': 'Казбек и Гергети (1 день)',
+                'description_short': 'Однодневная поездка к горе Казбек',
+                'description_full': 'Живописная поездка по Военно-Грузинской дороге к подножию Казбека. Посетите крепость Ананури, Гудаури, церковь Гергети на высоте 2170 метров.',
+                'price_base': 9500,
+                'duration_days': 1,
+                'tour_type': 'bus_small',
+                'max_people': 15,
+                'region': 'Казбеги',
+                'included': 'Транспорт, гид, джип до Гергети',
+                'not_included': 'Питание',
+                'program': [
+                    {'day': 1, 'title': 'Казбеги', 'description': 'Ранний выезд, возвращение поздно вечером'},
+                ]
+            },
+        ]
+        
+        # Добавляем еще туров до 40
+        regions = ['Тбилиси', 'Кахетия', 'Казбеги', 'Батуми', 'Имеретия', 'Сванетия']
+        tour_templates = [
+            'Выходные в {region}',
+            '{region} - жемчужина Грузии',
+            'Открой для себя {region}',
+            'Тайны и легенды {region}',
+            '{region} для гурманов',
+            'Активный отдых в {region}',
+        ]
+        
+        for i in range(len(tours_data), 40):
+            region = random.choice(regions)
+            template = random.choice(tour_templates)
+            days = random.choice([3, 4, 5, 7])
+            price = random.randint(20, 80) * 1000
+            
+            tours_data.append({
+                'title': template.format(region=region) + f' ({days} дней)',
+                'description_short': f'Увлекательное путешествие по региону {region}',
+                'description_full': f'Познакомьтесь с удивительным регионом {region}. Вас ждут незабываемые впечатления, красивейшие пейзажи, вкуснейшая еда и гостеприимные люди.',
+                'price_base': price,
+                'duration_days': days,
+                'tour_type': random.choice(['bus_group', 'bus_small', 'individual']),
+                'max_people': random.choice([15, 20, 30, 40]),
+                'region': region,
+                'included': 'Проживание, завтраки, транспорт, гид',
+                'not_included': 'Авиабилеты, обеды, ужины',
+                'program': [
+                    {'day': j+1, 'title': f'День {j+1}', 'description': f'Интересная программа дня {j+1}'}
+                    for j in range(days)
+                ]
+            })
+        
+        # Создаем туры
+        for tour_data in tours_data:
+            program = tour_data.pop('program')
+            operator = random.choice(operators)
+            
+            tour, created = Tour.objects.get_or_create(
+                title=tour_data['title'],
+                defaults={
+                    **tour_data,
+                    'tour_operator': operator,
+                    'program_by_days': program,
+                }
+            )
+            
+            if created:
+                self.stdout.write(f'Создан тур: {tour.title}')
+                
+                # Создаем даты для тура
+                self.create_tour_dates(tour)
+
+    def create_tour_dates(self, tour):
+        """Создает даты для тура на ближайшие 3 месяца"""
+        start_date = timezone.now().date() + timedelta(days=7)
+        
+        for i in range(6):  # 6 дат для каждого тура
+            date_offset = timedelta(days=random.randint(7, 90))
+            tour_start = start_date + date_offset
+            
+            total_seats = tour.max_people or 20
+            available_seats = random.randint(int(total_seats * 0.3), total_seats)
+            
+            # Используем get_or_create чтобы избежать дубликатов
+            TourDate.objects.get_or_create(
+                tour=tour,
+                start_date=tour_start,
+                defaults={
+                    'total_seats': total_seats,
+                    'available_seats': available_seats,
+                    'status': 'available'
+                }
+            )
+
+
+    def create_faq(self):
+        faq_data = [
+            {
+                'category': 'safety',
+                'question': 'Безопасно ли в Грузии для туристов?',
+                'answer': 'Да, Грузия - очень безопасная страна для туристов. Грузины известны своим гостеприимством. Мы также обеспечиваем страховку для всех участников туров.',
+            },
+            {
+                'category': 'docs',
+                'question': 'Нужна ли виза для поездки в Грузию?',
+                'answer': 'Гражданам России виза не нужна для поездок до 90 дней. Достаточно иметь действующий загранпаспорт.',
+            },
+            {
+                'category': 'payment',
+                'question': 'Как происходит оплата тура?',
+                'answer': 'Вы можете оплатить тур безналичным переводом или картой. Требуется предоплата 30%, остальное - за 7 дней до начала тура.',
+            },
+            {
+                'category': 'payment',
+                'question': 'Можно ли вернуть деньги при отмене?',
+                'answer': 'Да, при отмене за 14 дней до начала тура возвращается 100%. При отмене за 7-14 дней - 50%. Позже 7 дней - не возвращается.',
+            },
+            {
+                'category': 'transport',
+                'question': 'Какой транспорт используется?',
+                'answer': 'Мы используем комфортабельные автобусы Mercedes Sprinter и аналогичные. Для индивидуальных туров - легковые авто премиум-класса.',
+            },
+            {
+                'category': 'food',
+                'question': 'Какое питание включено?',
+                'answer': 'В стоимость тура включены завтраки. Обеды и ужины за доп. плату. Средний чек обеда в Грузии - 500-800 рублей.',
+            },
+            {
+                'category': 'connection',
+                'question': 'Есть ли интернет в Грузии?',
+                'answer': 'Да, в Грузии хорошее покрытие 4G. Можно купить местную SIM-карту в аэропорту за 10-15 лари (300-450 руб).',
+            },
+            {
+                'category': 'other',
+                'question': 'Что взять с собой?',
+                'answer': 'Удобную обувь, теплую одежду для гор, солнцезащитный крем, фотоаппарат. Подробный список вышлем после бронирования.',
+            },
+            {
+                'category': 'safety',
+                'question': 'Есть ли страховка?',
+                'answer': 'Да, все участники застрахованы. Страховка покрывает медицинские расходы до 35000 евро.',
+            },
+            {
+                'category': 'docs',
+                'question': 'Какие документы нужны для детей?',
+                'answer': 'Для детей до 14 лет - свидетельство о рождении с вклейкой фото или загранпаспорт. Старше 14 - загранпаспорт.',
+            },
+        ]
+        
+        for i, data in enumerate(faq_data):
+            FAQ.objects.get_or_create(
+                question=data['question'],
+                defaults={
+                    **data,
+                    'display_order': i,
+                }
+            )
+        
+        self.stdout.write(f'Создано {len(faq_data)} вопросов FAQ')
+
+    def create_reviews(self):
+        tours = list(Tour.objects.all()[:20])  # Отзывы для первых 20 туров
+        
+        reviews_data = [
+            {
+                'client_name': 'Елена М.',
+                'client_city': 'Москва',
+                'rating': 5,
+                'text': 'Потрясающая поездка! Грузия невероятно красивая страна. Гид был очень внимательным, все было организовано на высшем уровне. Обязательно вернемся!',
+            },
+            {
+                'client_name': 'Александр П.',
+                'client_city': 'Санкт-Петербург',
+                'rating': 5,
+                'text': 'Спасибо за незабываемые впечатления! Горы, вино, хинкали - все было идеально. Отдельное спасибо водителю Георгию!',
+            },
+            {
+                'client_name': 'Мария К.',
+                'client_city': 'Краснодар',
+                'rating': 4,
+                'text': 'Очень понравилось! Единственный минус - хотелось больше свободного времени. Но в целом тур отличный, рекомендую.',
+            },
+            {
+                'client_name': 'Дмитрий С.',
+                'client_city': 'Екатеринбург',
+                'rating': 5,
+                'text': 'Ездили всей семьей. Детям особенно понравилась поездка в горы. Все было продумано до мелочей. Спасибо организаторам!',
+            },
+            {
+                'client_name': 'Ольга Т.',
+                'client_city': 'Новосибирск',
+                'rating': 5,
+                'text': 'Грузия покорила мое сердце! Невероятно вкусная еда, красивейшие пейзажи и добрые люди. Тур был насыщенным и интересным.',
+            },
+        ]
+        
+        for tour in tours:
+            # Случайное количество отзывов (1-3 на тур)
+            num_reviews = random.randint(1, 3)
+            for _ in range(num_reviews):
+                review_data = random.choice(reviews_data).copy()
+                Review.objects.create(
+                    tour=tour,
+                    **review_data,
+                    moderation_status='approved'
+                )
+        
+        self.stdout.write(f'Создано отзывов для {len(tours)} туров')

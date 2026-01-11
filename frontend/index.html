@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Туры в Грузию | Откройте для себя Кавказ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Навигация -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <i class="fas fa-mountain"></i>
+                    <span>Грузия Туры</span>
+                </div>
+                <div class="nav-links" id="navLinks">
+                <a href="#tours">Туры</a>
+                <a href="blog.html">Блог 🦝</a>
+                <a href="#about">О нас</a>
+                    <a href="#reviews">Отзывы</a>
+                    <a href="#faq">FAQ</a>
+                    <a href="#contact">Контакты</a>
+                </div>
+                <button class="nav-toggle" id="navToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <!-- Hero Section с каруселью -->
+	<section class="hero">
+		<!-- Слайды -->
+		<div class="hero-slider">
+			<div class="hero-slide active" style="background-image: url('images/hero1.jpg');">
+				<div class="hero-overlay"></div>
+			</div>
+			<div class="hero-slide" style="background-image: url('images/hero2.jpg');">
+				<div class="hero-overlay"></div>
+			</div>
+			<div class="hero-slide" style="background-image: url('images/hero3.jpg');">
+				<div class="hero-overlay"></div>
+			</div>
+			<div class="hero-slide" style="background-image: url('images/hero4.jpg');">
+				<div class="hero-overlay"></div>
+			</div>
+			<div class="hero-slide" style="background-image: url('images/hero5.jpg');">
+				<div class="hero-overlay"></div>
+			</div>
+		</div>
+
+		<!-- Стрелки навигации -->
+		<button class="hero-arrow hero-arrow-left" id="heroPrev">
+			<i class="fas fa-chevron-left"></i>
+		</button>
+		<button class="hero-arrow hero-arrow-right" id="heroNext">
+			<i class="fas fa-chevron-right"></i>
+		</button>
+
+		<!-- Контент по центру -->
+		<div class="hero-content">
+			<h1 class="hero-title">Откройте для себя Грузию</h1>
+			<p class="hero-subtitle">Древние храмы, высокие горы и легендарное вино</p>
+			<div class="hero-buttons">
+				<a href="#tours" class="btn btn-primary">Подобрать тур</a>
+				<a href="#about" class="btn btn-secondary">Узнать больше</a>
+			</div>
+		</div>
+
+		<!-- Статистика внизу -->
+		<div class="hero-stats">
+			<div class="stat">
+				<i class="fas fa-mountain"></i>
+				<div>
+					<strong id="toursCount">40+</strong>
+					<span>направлений</span>
+				</div>
+			</div>
+			<div class="stat">
+				<i class="fas fa-star"></i>
+				<div>
+					<strong>4.9</strong>
+					<span>средний рейтинг</span>
+				</div>
+			</div>
+			<div class="stat">
+				<i class="fas fa-users"></i>
+				<div>
+					<strong>2000+</strong>
+					<span>довольных туристов</span>
+				</div>
+			</div>
+		</div>
+
+		<!-- Индикаторы слайдов -->
+		<div class="hero-indicators" id="heroIndicators">
+			<span class="indicator active" data-slide="0"></span>
+			<span class="indicator" data-slide="1"></span>
+			<span class="indicator" data-slide="2"></span>
+			<span class="indicator" data-slide="3"></span>
+			<span class="indicator" data-slide="4"></span>
+		</div>
+
+		<div class="scroll-indicator">
+			<i class="fas fa-chevron-down"></i>
+		</div>
+	</section>
+
+
+    <!-- Фильтры туров -->
+    <section class="filters-section" id="tours">
+        <div class="container">
+            <h2 class="section-title">Найдите свой идеальный тур</h2>
+            <div class="filters">
+                <div class="filter-group">
+                    <label><i class="fas fa-calendar"></i> Даты</label>
+                    <input type="date" id="filterStartDate" class="filter-input">
+                </div>
+                <div class="filter-group">
+                    <label><i class="fas fa-ruble-sign"></i> Бюджет</label>
+                    <select id="filterBudget" class="filter-input">
+                        <option value="">Любой</option>
+                        <option value="0-30000">До 30 000 ₽</option>
+                        <option value="30000-50000">30 000 - 50 000 ₽</option>
+                        <option value="50000-70000">50 000 - 70 000 ₽</option>
+                        <option value="70000-999999">От 70 000 ₽</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label><i class="fas fa-clock"></i> Длительность</label>
+                    <select id="filterDuration" class="filter-input">
+                        <option value="">Любая</option>
+                        <option value="1">1 день</option>
+                        <option value="3">3 дня</option>
+                        <option value="4">4 дня</option>
+                        <option value="5">5 дней</option>
+                        <option value="7">7 дней</option>
+                        <option value="10">10 дней</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label><i class="fas fa-map-marker-alt"></i> Регион</label>
+                    <select id="filterRegion" class="filter-input">
+                        <option value="">Все регионы</option>
+                        <option value="Тбилиси">Тбилиси</option>
+                        <option value="Казбеги">Казбеги</option>
+                        <option value="Кахетия">Кахетия</option>
+                        <option value="Батуми">Батуми</option>
+                        <option value="Имеретия">Имеретия</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary" id="applyFilters">
+                    <i class="fas fa-search"></i> Найти
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Каталог туров -->
+    <section class="tours-section">
+        <div class="container">
+            <div class="tours-header">
+                <h2 class="section-title">Популярные туры</h2>
+                <div class="tours-count">Найдено: <span id="toursFoundCount">0</span> туров</div>
+            </div>
+            
+            <!-- Loader -->
+            <div class="loader" id="loader">
+                <i class="fas fa-spinner fa-spin"></i>
+                <p>Загружаем туры...</p>
+            </div>
+
+            <!-- Сетка туров -->
+            <div class="tours-grid" id="toursGrid">
+                <!-- Карточки туров будут добавлены через JavaScript -->
+            </div>
+
+            <!-- Пагинация -->
+            <div class="pagination" id="pagination">
+                <!-- Кнопки пагинации через JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Почему мы -->
+    <section class="why-us-section" id="about">
+        <div class="why-us-overlay"></div>
+        <div class="container">
+            <h2 class="section-title light">Почему выбирают нас</h2>
+            <div class="features-grid">
+                <div class="feature">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h3>Опытные гиды</h3>
+                    <p>Профессиональные экскурсоводы с 10+ летним стажем</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Безопасность</h3>
+                    <p>Полная страховка и поддержка 24/7 во время тура</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">
+                        <i class="fas fa-hand-holding-usd"></i>
+                    </div>
+                    <h3>Прозрачность цен</h3>
+                    <p>Никаких скрытых платежей, все включено в стоимость</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>Поддержка 24/7</h3>
+                    <p>Всегда на связи через WhatsApp, Telegram и телефон</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Отзывы -->
+    <section class="reviews-section" id="reviews">
+        <div class="container">
+            <h2 class="section-title">Отзывы наших туристов</h2>
+            <div class="reviews-slider" id="reviewsSlider">
+                <div class="review-card">
+                    <div class="review-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="review-text">"Потрясающая поездка! Грузия невероятно красивая страна. Гид был очень внимательным, все было организовано на высшем уровне."</p>
+                    <div class="review-author">
+                        <strong>Елена М.</strong>
+                        <span>Москва</span>
+                    </div>
+                </div>
+                <div class="review-card">
+                    <div class="review-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="review-text">"Спасибо за незабываемые впечатления! Горы, вино, хинкали - все было идеально. Обязательно вернемся снова!"</p>
+                    <div class="review-author">
+                        <strong>Александр П.</strong>
+                        <span>Санкт-Петербург</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3><i class="fas fa-mountain"></i> Грузия Туры</h3>
+                    <p>Ваш надежный партнер в путешествиях по Грузии с 2015 года</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-vk"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Контакты</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> г. Пятигорск, ул. Кирова, 12</p>
+                    <p><i class="fas fa-phone"></i> +7 (928) 123-45-67</p>
+                    <p><i class="fas fa-envelope"></i> info@georgia-tours.ru</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Информация</h4>
+                    <a href="#">О компании</a>
+                    <a href="#">Наши туры</a>
+                    <a href="#">Отзывы</a>
+                    <a href="#">Контакты</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Грузия Туры. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
