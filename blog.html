@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Блог Доби-Дори 🦝 - Грузия глазами енота-путешественника</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="blog.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Навигация -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-mountain"></i>
+                    <span>Грузия-Туры</span>
+                </a>
+                <div class="nav-links" id="navLinks">
+                    <a href="index.html">Туры</a>
+                    <a href="blog.html" class="active">Блог 🦝</a>
+                    <a href="index.html#about">О нас</a>
+                    <a href="index.html#reviews">Отзывы</a>
+                    <a href="index.html#faq">FAQ</a>
+                    <a href="index.html#contact">Контакты</a>
+                </div>
+                <button class="nav-toggle" id="navToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero слайдер - БЕЗ текста -->
+    <section class="blog-hero">
+        <div class="blog-hero-slider">
+            <div id="heroSlider">
+                <!-- Слайды добавятся через JavaScript -->
+            </div>
+
+            <!-- Кнопки навигации -->
+            <button class="slider-nav prev" id="prevSlide">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="slider-nav next" id="nextSlide">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+
+            <!-- Индикаторы -->
+            <div class="slider-indicators" id="sliderIndicators">
+                <!-- Точки добавятся через JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция О блоге (под слайдером) -->
+    <section class="blog-intro-section">
+        <div class="container">
+            <div class="blog-intro-content">
+                <div class="blog-intro-avatar">
+                    <img src="images/dobi-avatar.jpg" alt="Доби-Дори" class="intro-avatar">
+                </div>
+                <div class="blog-intro-text">
+                    <h1 class="intro-title">
+                        Блог Доби-Дори
+                        <span class="raccoon-emoji">🦝</span>
+                    </h1>
+                    <p class="intro-description">
+                        Привет! Я Доби-Дори, енот-путешественник. Я побывал во многих странах, 
+                        но Грузия украла моё сердце! Здесь я делюсь своими историями, советами 
+                        и секретными местами.
+                    </p>
+                </div>
+                <div class="blog-intro-stats">
+                    <div class="intro-stat">
+                        <i class="fas fa-map-marked-alt"></i>
+                        <div>
+                            <strong>15</strong>
+                            <span>стран</span>
+                        </div>
+                    </div>
+                    <div class="intro-stat">
+                        <i class="fas fa-camera"></i>
+                        <div>
+                            <strong>500+</strong>
+                            <span>фото</span>
+                        </div>
+                    </div>
+                    <div class="intro-stat">
+                        <i class="fas fa-heart"></i>
+                        <div>
+                            <strong>❤️</strong>
+                            <span>Грузия</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Фильтры категорий -->
+    <section class="blog-filters-section">
+        <div class="container">
+            <div class="blog-filters">
+                <button class="filter-btn active" data-category="all">
+                    <i class="fas fa-globe"></i>
+                    Все посты
+                </button>
+                <button class="filter-btn" data-category="nature">
+                    <i class="fas fa-mountain"></i>
+                    Природа и горы
+                </button>
+                <button class="filter-btn" data-category="culture">
+                    <i class="fas fa-landmark"></i>
+                    История и культура
+                </button>
+                <button class="filter-btn" data-category="food">
+                    <i class="fas fa-utensils"></i>
+                    Еда и вино
+                </button>
+                <button class="filter-btn" data-category="cities">
+                    <i class="fas fa-city"></i>
+                    Города и люди
+                </button>
+                <button class="filter-btn" data-category="tips">
+                    <i class="fas fa-lightbulb"></i>
+                    Советы путешественникам
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Основной контент -->
+    <section class="blog-content-section">
+        <div class="container">
+            <div class="blog-layout">
+                <!-- Посты блога -->
+                <div class="blog-posts-grid" id="blogPostsGrid">
+                    <!-- Посты добавятся через JavaScript -->
+                </div>
+
+                <!-- Sidebar -->
+                <aside class="blog-sidebar">
+                    <!-- О Доби-Дори -->
+                    <div class="sidebar-card sidebar-dobi">
+                        <h3><i class="fas fa-paw"></i> О Доби-Дори</h3>
+                        <img src="images/dobi-avatar.jpg" alt="Доби-Дори" class="dobi-avatar">
+                        <p><strong>Енот-путешественник из Амстердама</strong></p>
+                        <p>🌍 Посетил 15 стран<br>📸 Сделал 500+ фото<br>❤️ Грузия - любовь навсегда!</p>
+                        <div class="dobi-stats">
+                            <div class="stat">
+                                <i class="fas fa-map-marked-alt"></i>
+                                <span>15 стран</span>
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-camera"></i>
+                                <span>500+ фото</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Популярные посты -->
+                    <div class="sidebar-card">
+                        <h3><i class="fas fa-fire"></i> Популярное</h3>
+                        <div id="popularPostsList">
+                            <!-- Популярные посты добавятся через JS -->
+                        </div>
+                    </div>
+
+                    <!-- CTA -->
+                    <div class="sidebar-card sidebar-cta">
+                        <h3>Готовы к приключениям?</h3>
+                        <p>Выбирайте тур и отправляйтесь в путешествие по Грузии вместе с нами!</p>
+                        <a href="index.html" class="btn btn-primary btn-block">Выбрать тур →</a>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Грузия-Туры</h4>
+                    <p>Незабываемые путешествия по Грузии с русскоязычным гидом</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Контакты</h4>
+                    <p><i class="fas fa-envelope"></i> info@georgia-tours.ru</p>
+                    <p><i class="fas fa-phone"></i> +7 999 123-45-67</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Социальные сети</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-vk"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Грузия-Туры. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="config.js"></script>
+    <script src="blog.js"></script>
+</body>
+</html>

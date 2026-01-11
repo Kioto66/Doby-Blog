@@ -1,0 +1,573 @@
+/* ============ БЛОГ ДОБИ-ДОРИ ============ */
+
+/* Hero слайдер - БЕЗ затемнения и текста */
+.blog-hero {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
+    margin-top: 80px; /* ← ОТСТУП ОТ NAVBAR */
+}
+
+/* Контейнер слайдера */
+.blog-hero-slider {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* Слайды - ЧИСТЫЕ, без затемнения */
+.hero-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1.2s ease-in-out;
+}
+
+.hero-slide.active {
+    opacity: 1;
+}
+
+/* Кнопки навигации слайдера */
+.slider-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    font-size: 1.3rem;
+    transition: all 0.3s;
+    z-index: 10;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.slider-nav:hover {
+    background: white;
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.slider-nav.prev {
+    left: 2rem;
+}
+
+.slider-nav.next {
+    right: 2rem;
+}
+
+/* Индикаторы слайдов */
+.slider-indicators {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.8rem;
+    z-index: 10;
+}
+
+.slider-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.6);
+    border: 2px solid white;
+    cursor: pointer;
+    transition: all 0.4s;
+}
+
+.slider-dot.active {
+    background: white;
+    width: 35px;
+    border-radius: 6px;
+    box-shadow: 0 2px 10px rgba(255, 255, 255, 0.8);
+}
+
+.slider-dot:hover {
+    background: rgba(255, 255, 255, 0.9);
+    transform: scale(1.2);
+}
+
+/* ✨ СЕКЦИЯ О БЛОГЕ - КОРИЧНЕВЫЙ ГРАДИЕНТ */
+.blog-intro-section {
+    background: linear-gradient(135deg, #8B4513 0%, #A0522D 50%, #CD853F 100%);
+    padding: 3rem 0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.blog-intro-content {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 2.5rem;
+    align-items: center;
+}
+
+/* Аватар енота */
+.blog-intro-avatar {
+    position: relative;
+}
+
+.intro-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid #fff;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Текст */
+.blog-intro-text {
+    flex: 1;
+}
+
+.intro-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    color: #fff;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.raccoon-emoji {
+    font-size: 2.5rem;
+    animation: wave 2s ease-in-out infinite;
+}
+
+@keyframes wave {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(20deg); }
+    75% { transform: rotate(-20deg); }
+}
+
+.intro-description {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.95);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Статистика */
+.blog-intro-stats {
+    display: flex;
+    gap: 2rem;
+}
+
+.intro-stat {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 1rem 1.5rem;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.3s;
+}
+
+.intro-stat:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.25);
+}
+
+.intro-stat i {
+    font-size: 1.8rem;
+    color: #fff;
+}
+
+.intro-stat strong {
+    display: block;
+    font-size: 1.3rem;
+    color: #fff;
+    font-weight: 700;
+}
+
+.intro-stat span {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Фильтры */
+.blog-filters-section {
+    background: var(--bg-light);
+    padding: 2rem 0;
+    position: sticky;
+    top: 80px;
+    z-index: 100;
+    border-top: 1px solid #e0e0e0;
+}
+
+.blog-filters {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.filter-btn {
+    background: white;
+    border: 2px solid transparent;
+    padding: 0.75rem 1.5rem;
+    border-radius: 30px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.filter-btn:hover {
+    background: var(--primary);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.filter-btn.active {
+    background: var(--accent-red);
+    color: white;
+    border-color: var(--accent-red);
+}
+
+/* Основной контент */
+.blog-content-section {
+    padding: 4rem 0;
+    background: var(--bg-light);
+}
+
+.blog-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 3rem;
+}
+
+.blog-posts-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+/* Карточка поста */
+.blog-post-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: all 0.3s;
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+}
+
+.blog-post-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+}
+
+.blog-post-image {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+}
+
+.blog-post-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.blog-post-card:hover .blog-post-image img {
+    transform: scale(1.1);
+}
+
+.blog-category-badge {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: var(--accent-red);
+    color: white;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.blog-category-badge.nature { background: #2E7D32; }
+.blog-category-badge.culture { background: #8B4513; }
+.blog-category-badge.food { background: #F57C00; }
+.blog-category-badge.cities { background: #1976D2; }
+.blog-category-badge.tips { background: #7B1FA2; }
+
+.blog-post-content {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.blog-post-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: var(--primary);
+    margin-bottom: 1rem;
+}
+
+.blog-post-excerpt {
+    color: var(--gray);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+}
+
+.blog-post-meta {
+    display: flex;
+    gap: 1.5rem;
+    color: var(--gray);
+    font-size: 0.9rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--bg-light);
+}
+
+.blog-post-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+/* Sidebar */
+.blog-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.sidebar-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+}
+
+.sidebar-card h3 {
+    font-size: 1.3rem;
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.sidebar-dobi {
+    text-align: center;
+}
+
+.dobi-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1rem;
+    border: 4px solid var(--accent-red);
+}
+
+.dobi-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.dobi-stats .stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    background: var(--bg-light);
+    border-radius: 12px;
+}
+
+.dobi-stats .stat i {
+    color: var(--accent-red);
+    font-size: 1.5rem;
+}
+
+/* Популярные посты */
+.popular-post-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--bg-light);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.popular-post-item:last-child {
+    border-bottom: none;
+}
+
+.popular-post-item:hover {
+    transform: translateX(5px);
+}
+
+.popular-post-thumb {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.popular-post-info h4 {
+    font-size: 0.95rem;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+}
+
+.popular-post-info .meta {
+    font-size: 0.8rem;
+    color: var(--gray);
+}
+
+/* CTA в sidebar */
+.sidebar-cta {
+    background: linear-gradient(135deg, var(--primary) 0%, #8B4513 100%);
+    color: white;
+}
+
+.sidebar-cta h3 {
+    color: white;
+}
+
+.sidebar-cta p {
+    margin-bottom: 1.5rem;
+    opacity: 0.95;
+}
+
+/* Адаптив */
+@media (max-width: 1024px) {
+    .blog-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .blog-sidebar {
+        order: -1;
+    }
+
+    .blog-hero {
+        height: 400px;
+        margin-top: 70px;
+    }
+
+    .blog-intro-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 1.5rem;
+    }
+
+    .intro-avatar {
+        width: 100px;
+        height: 100px;
+        margin: 0 auto;
+    }
+
+    .intro-title {
+        justify-content: center;
+        font-size: 2rem;
+    }
+
+    .blog-intro-stats {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 768px) {
+    .blog-hero {
+        height: 350px;
+        margin-top: 60px;
+    }
+
+    .slider-nav {
+        width: 40px;
+        height: 40px;
+        font-size: 1.1rem;
+    }
+
+    .slider-nav.prev {
+        left: 1rem;
+    }
+
+    .slider-nav.next {
+        right: 1rem;
+    }
+
+    .slider-indicators {
+        bottom: 1.5rem;
+    }
+
+    .blog-intro-section {
+        padding: 2rem 0;
+    }
+
+    .intro-title {
+        font-size: 1.8rem;
+    }
+
+    .intro-description {
+        font-size: 1rem;
+    }
+
+    .blog-intro-stats {
+        gap: 1rem;
+    }
+
+    .intro-stat {
+        padding: 0.8rem 1rem;
+    }
+
+    .blog-post-card {
+        grid-template-columns: 1fr;
+    }
+
+    .blog-post-image {
+        height: 200px;
+    }
+}
+
+@media (max-width: 480px) {
+    .blog-hero {
+        height: 300px;
+    }
+
+    .intro-title {
+        font-size: 1.5rem;
+        flex-direction: column;
+        gap: 0.3rem;
+    }
+
+    .blog-intro-stats {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .intro-stat {
+        width: 100%;
+    }
+}
